@@ -1,7 +1,7 @@
-import * as Yup from 'yup';
-import User from '../models/User';
-import jwt from 'jsonwebtoken';
-import authConfig from '../../config/auth';
+import * as Yup from "yup";
+import User from "../models/User";
+import jwt from "jsonwebtoken";
+import authConfig from "../../../config/auth";
 
 class SectionController {
   async store(req, res) {
@@ -13,7 +13,7 @@ class SectionController {
     const emailOrPasswordIconrrect = () => {
       res
         .status(401)
-        .json({ error: 'Make sure your email or passowrd correct' });
+        .json({ error: "Make sure your email or passowrd correct" });
     };
 
     const isValid = await schema.isValid(req.body);
@@ -44,7 +44,7 @@ class SectionController {
       id: user.id,
       name: user.name,
       admin: user.admin,
-      token: jwt.sign({ id: user.id }, authConfig.secret, {
+      token: jwt.sign({ id: user.id, name: user.name }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     });
